@@ -16,13 +16,13 @@ public class Usuario {
 	private String password;
 	private int intentosFallidos;
 	private Date ultimoIngreso;
+	private Perfil perfil;
 	
 	public Usuario() {
 		
 	}
 	
 	
-
 	/**
 	 * @param nombreUsuario
 	 * @param password
@@ -94,6 +94,24 @@ public class Usuario {
 	 */
 	public void setUltimoIngreso(Date ultimoIngreso) {
 		this.ultimoIngreso = ultimoIngreso;
+	}
+
+
+
+	/**
+	 * @return the perfil
+	 */
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+
+
+	/**
+	 * @param perfil the perfil to set
+	 */
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 	
 	

@@ -17,11 +17,11 @@ public class Conexion {
 	private static Connection instancia = null;
 	
 	private Conexion() {
-		this.host = "mysql-curso"; //127.0.0.1
+		this.host = "localhost"; //127.0.0.1
 		this.puerto = 3306;
 		this.baseDeDatos = "curso";
 		this.nombre = "jmaldonado";
-		this.password = "java123";	
+		this.password = "java123";
 	}
 
 	public String getHost() {

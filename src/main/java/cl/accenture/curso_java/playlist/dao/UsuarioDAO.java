@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import cl.accenture.curso_java.playlist.modelo.Conexion;
+import cl.accenture.curso_java.playlist.modelo.ObjetoNoEncontradoException;
+import cl.accenture.curso_java.playlist.modelo.Perfil;
 import cl.accenture.curso_java.playlist.modelo.SinConexionException;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
 
@@ -24,7 +26,7 @@ public class UsuarioDAO {
 	 * @throws SQLException
 	 * @throws SinConexionException
 	 */
-	public static boolean validar(Usuario usuario) throws SQLException, SinConexionException {
+	public static Usuario validar(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"select * from usuario where "+
 				"userName =?  AND "+  
@@ -32,6 +34,13 @@ public class UsuarioDAO {
 		st.setString(1,  usuario.getNombreUsuario() );
 		st.setString(2,  usuario.getPassword() );
 		ResultSet rs = st.executeQuery();
-		return rs.next();
+		if( rs.next() ){
+			Perfil perfil =PerfilDAO.obtenerPerfil( rs.getInt("id_perfil") ) ;
+			usuario.setPerfil(perfil);
+			usuario.setUltimoIngreso( rs.getDate("ultimoIngreso") );
+			usuario.setIntentosFallidos(  rs.getInt("intentosFallidos" ) );
+			return usuario;
+		}
+		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
 }

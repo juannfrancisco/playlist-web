@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import cl.accenture.curso_java.playlist.dao.UsuarioDAO;
+import cl.accenture.curso_java.playlist.modelo.ObjetoNoEncontradoException;
+import cl.accenture.curso_java.playlist.modelo.Permiso;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
 
 /**
@@ -66,26 +68,44 @@ public class LoginControlador implements Serializable {
 	 */
 	public String iniciarSesion(){
 		try {
-			boolean usuarioValido = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
-			if( usuarioValido ){
-				this.mensaje = "";
-				this.error = false;
-				return "principal?faces-redirect=true";
-			}else{
-				this.error = true;
-				this.mensaje = "Usuario y/o Password incorrectos";
-				return "";
-			}
+			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
+			usuarioLogeado = usuario;
+			this.mensaje = "";
+			this.error = false;
+			return "principal?faces-redirect=true";
+		} catch (ObjetoNoEncontradoException e) {
+			this.error = true;
+			this.mensaje = "Usuario y/o Password incorrectos";
+			return "";
 		} catch (Exception e) {
 			this.error = true;
 			this.mensaje = "Ocurrio un error inesperado, intente más tarde";
 			return "";
 		}
-		
-		
-		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String cerrarSesion(){
+		this.usuarioLogeado = null;
+		this.nombreUsuario = null;
+		this.password = null;
+		return "login?faces-redirect=true";
+	}
+	
+	
+	/**
+	 * 
+	 * @param identificador
+	 * @return
+	 */
+	public boolean tienePermiso(String identificador){
+		return this.usuarioLogeado.getPerfil().getPermisos().contains( new Permiso(identificador) );
 	}
 
+	
 	public String getMensaje() {
 		return mensaje;
 	}
