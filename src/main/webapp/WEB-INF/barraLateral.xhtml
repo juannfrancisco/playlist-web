@@ -5,13 +5,21 @@
 	<!-- Nav tabs -->
 	<ul class="nav nav-pills nav-stacked" role="tablist">
 		<li role="presentation" class="active">
-			<a href="#home" aria-controls="home" role="tab">Inicio</a>
+			<a href="principal.xhtml" aria-controls="home" role="tab">Inicio</a>
 		</li>
-		<c:if test = "#{loginControlador.tienePermiso('nuevo-usuario')}">
+		<c:if test = "#{loginControlador.tienePermiso('nueva-cancion')}">
 			<li role="presentation" >
-				<a href="nuevoAlumno2.xhtml" aria-controls="profile" role="tab">Nuevo Usuario</a>
+				<a href="nueva-cancion.xhtml" aria-controls="profile" role="tab">Nueva Cancion</a>
 			</li>
 		</c:if>
+		
+		<c:if test = "#{loginControlador.tienePermiso('listar-cancion')}">
+			<li role="presentation" >
+				<a href="lista-canciones.xhtml" aria-controls="profile" role="tab">Ver Canciones</a>
+			</li>
+		</c:if>
+		
+		
 	</ul>
 </div>
 

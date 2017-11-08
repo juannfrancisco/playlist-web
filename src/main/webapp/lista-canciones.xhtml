@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html
+ 	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+	<title>hola mundo</title>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+	<style type="text/css">
+		.barra-lateral {
+		    position: fixed;
+		    top: 50px;
+		    bottom: 0;
+		    padding: 0px;
+		    padding-top: 20px;
+		    background-color: #ebebeb;
+		    border-right: 1px solid silver;
+		}
+		.contenedor-principal{
+			margin-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<ui:include src="/WEB-INF/barraSuperior.xhtml" />
+	<div class="container-fluid">
+		<div class="row">
+			<ui:include src="/WEB-INF/barraLateral.xhtml" />
+			<div class="col-xs-12 col-sm-10 col-sm-offset-2 contenedor-principal">
+				<h1>Canciones</h1>
+				<h:form>
+					
+					<div class="text-right" >
+						<div class="btn-group" role="group">
+							
+							
+							<c:if test = "#{loginControlador.tienePermiso('nueva-cancion')}">
+								<h:commandButton styleClass="btn btn-primary"
+									value="Agregar Cancion" action="nueva-cancion"></h:commandButton>
+							</c:if>
+								
+								
+							<h:commandButton styleClass="btn btn-default"
+								value="Refrescar" action="#{listaCancionesControlador.obtenerCanciones}"></h:commandButton>
+						</div>
+					</div>
+					<hr/>
+					<h:dataTable 
+						value="#{listaCancionesControlador.canciones}"
+						var="cancion"
+						styleClass="table table-bordered">
+						
+						<h:column>
+							<f:facet name="header">Id</f:facet>
+							#{cancion.id}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Nombre</f:facet>
+							#{cancion.nombre}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Duración Sg.</f:facet>
+							#{cancion.duracion}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Artista</f:facet>
+							#{cancion.artista}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Genero</f:facet>
+							#{cancion.genero}						
+						</h:column>
+						
+					</h:dataTable>
+				</h:form>
+				
+			</div>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
