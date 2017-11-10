@@ -30,43 +30,30 @@
 		<div class="row">
 			<ui:include src="/WEB-INF/barraLateral.xhtml" />
 			<div class="col-xs-12 col-sm-10 col-sm-offset-2 contenedor-principal">
-				<h1>Nueva Canción</h1>
+				<h1>Nueva Playlist</h1>
 				
 				<h:form>
 					<div class="form-group">
 						<label>Nombre</label>
-						<h:inputText id="nombre" label="nombre" styleClass="form-control" value="#{nuevaCancionControlador.cancion.nombre}">
+						<h:inputText id="nombre" label="nombre" styleClass="form-control" value="#{nuevaPlaylistControlador.nombrePlaylist}">
 					    	<f:validateLength minimum="1" maximum="100" />
 					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
-						<label>Duración en Segundos</label>
-						<h:inputText id="duracion" label="duracion" styleClass="form-control" value="#{nuevaCancionControlador.cancion.duracion}">
-					    	<f:validateLongRange minimum="1" maximum="1000"></f:validateLongRange>
-					    </h:inputText>
+						<label>Descripción</label>
+						<h:inputTextarea id="descripcion" label="descripcion" styleClass="form-control" value="#{nuevaPlaylistControlador.descripcion}">
+					    	<f:validateLength minimum="1" maximum="200" />
+					    </h:inputTextarea>
 					</div>
 					
-					<div class="form-group">
-						<label>Artista</label>
-						<h:inputText id="artista" label="artista" styleClass="form-control" value="#{nuevaCancionControlador.cancion.artista}">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Genero</label>
-					    <h:selectOneMenu value="#{nuevaCancionControlador.cancion.genero}" styleClass="form-control" >
-				   			<f:selectItems value="#{nuevaCancionControlador.generos}" var="genero"
-				   			itemLabel="#{genero.nombre}" itemValue="#{genero.nombre}" />
-				   		</h:selectOneMenu>
-					</div>
+					<h:inputHidden value="#{loginControlador.nombreUsuario}" ></h:inputHidden>
 					
 					<div class="form-group">
 						<h:commandButton styleClass="btn btn-primary btn-block"
-							value="Guardar" action="#{nuevaCancionControlador.agregarCancion}"></h:commandButton>
+							value="Guardar" action="#{nuevaPlaylistControlador.agregarPlaylist}"></h:commandButton>
 					</div>
-					#{nuevaCancionControlador.mensaje}
+					#{nuevaPlaylistControlador.mensaje}
 				</h:form>
 				
 			</div>

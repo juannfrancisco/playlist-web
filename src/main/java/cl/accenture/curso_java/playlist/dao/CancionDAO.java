@@ -61,4 +61,18 @@ public class CancionDAO {
 	}
 	
 	
+	/**
+	 * 
+	 * @param cancion
+	 * @throws SQLException
+	 * @throws SinConexionException
+	 */
+	public static void eliminarCancion( Cancion cancion ) throws SQLException, SinConexionException{
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"delete from cancion where idcancion = ?;");
+		st.setInt(1, cancion.getId() );
+		st.executeUpdate();
+	}
+	
+	
 }

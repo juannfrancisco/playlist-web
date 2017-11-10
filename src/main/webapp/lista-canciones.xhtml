@@ -79,6 +79,32 @@
 							#{cancion.genero}						
 						</h:column>
 						
+						<h:column>
+							<f:facet name="header"></f:facet>
+							<div class="btn-group" role="group">
+								<c:if test = "#{loginControlador.tienePermiso('editar-cancion')}">
+									<h:commandButton styleClass="btn btn-default"
+										value="Editar" action="nueva-cancion"></h:commandButton>
+								</c:if>
+								<c:if test = "#{loginControlador.tienePermiso('eliminar-cancion')}">
+									<h:commandButton styleClass="btn btn-danger"
+										value="Eliminar" action="#{listaCancionesControlador.eliminar( cancion )}"></h:commandButton>
+								</c:if>
+								<c:if test = "#{loginControlador.tienePermiso('agregar-cancion-playlist')}">
+									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+									    Agregar 
+									    <span class="caret"></span>
+								  	</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									  <li><a href="">Mis Playlist</a></li>
+									  <li role="separator" class="divider"></li>
+									  <li><a href="#">Playlist 1</a></li>
+									  <li><a href="#">Playlist 2</a></li>
+									</ul>
+								</c:if>
+							</div>
+						</h:column>
+						
 					</h:dataTable>
 				</h:form>
 				

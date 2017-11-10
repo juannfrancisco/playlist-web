@@ -9,9 +9,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import cl.accenture.curso_java.playlist.dao.CancionDAO;
+import cl.accenture.curso_java.playlist.dao.PlaylistDAO;
 import cl.accenture.curso_java.playlist.modelo.Cancion;
+import cl.accenture.curso_java.playlist.modelo.Playlist;
+import cl.accenture.curso_java.playlist.modelo.Usuario;
 
 /**
  * @author Juan Francisco Maldonado León - juan.maldonado.leon@gmail.com
@@ -20,16 +24,16 @@ import cl.accenture.curso_java.playlist.modelo.Cancion;
  */
 @ManagedBean
 @RequestScoped
-public class ListaCancionesControlador implements Serializable {
+public class ListaPlaylistControlador implements Serializable {
 
 	private static final long serialVersionUID = -6848126621941457061L;
-	private List<Cancion> canciones;
+	private List<Playlist> playlists;
 	private String mensaje;
 	
 	/**
 	 * 
 	 */
-	public ListaCancionesControlador() {
+	public ListaPlaylistControlador() {
 		obtenerCanciones();
 	}
 	
@@ -39,11 +43,12 @@ public class ListaCancionesControlador implements Serializable {
 	 */
 	public void obtenerCanciones(){
 		try {
-			this.canciones = CancionDAO.obtenerCanciones();
+			Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+			this.playlists = PlaylistDAO.obtenerPlaylists(usuario.getNombreUsuario());
 			this.mensaje = "";
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las canciones";
-			this.canciones = new ArrayList<Cancion>();
+			this.playlists = new ArrayList<Playlist>();
 		}
 	}
 	
@@ -65,20 +70,6 @@ public class ListaCancionesControlador implements Serializable {
 	
 
 	/**
-	 * @return the canciones
-	 */
-	public List<Cancion> getCanciones() {
-		return canciones;
-	}
-
-	/**
-	 * @param canciones the canciones to set
-	 */
-	public void setCanciones(List<Cancion> canciones) {
-		this.canciones = canciones;
-	}
-
-	/**
 	 * @return the mensaje
 	 */
 	public String getMensaje() {
@@ -90,6 +81,22 @@ public class ListaCancionesControlador implements Serializable {
 	 */
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+
+	/**
+	 * @return the playlists
+	 */
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+
+	/**
+	 * @param playlists the playlists to set
+	 */
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
 	}
 
 	

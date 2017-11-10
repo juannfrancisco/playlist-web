@@ -19,6 +19,12 @@
 			</li>
 		</c:if>
 		
+		<c:if test = "#{loginControlador.tienePermiso('ver-mi-playlist')}">
+			<li role="presentation" >
+				<a href="mis-playlist.xhtml" aria-controls="profile" role="tab">Mis Playlist</a>
+			</li>
+		</c:if>
+		
 		
 	</ul>
 </div>

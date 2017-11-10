@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.apache.log4j.Logger;
 
 import cl.accenture.curso_java.playlist.dao.UsuarioDAO;
 import cl.accenture.curso_java.playlist.modelo.ObjetoNoEncontradoException;
@@ -23,6 +26,8 @@ import cl.accenture.curso_java.playlist.modelo.Usuario;
 public class LoginControlador implements Serializable {
 
 	private static final long serialVersionUID = -6848126621941457061L;
+	private static final Logger LOGGER = Logger.getLogger(LoginControlador.class);
+
 	private String nombreUsuario;
 	private String password;
 	private String mensaje;
@@ -70,14 +75,19 @@ public class LoginControlador implements Serializable {
 		try {
 			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
 			usuarioLogeado = usuario;
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+			LOGGER.info("El usuario " + this.nombreUsuario + " ha iniciado sesion");
 			this.mensaje = "";
 			this.error = false;
 			return "principal?faces-redirect=true";
 		} catch (ObjetoNoEncontradoException e) {
+			LOGGER.warn( "Error al iniciar sesion, datos no coinciden , " + this.nombreUsuario );
+			LOGGER.debug( "Usuario " + this.nombreUsuario + " password " + this.password );
 			this.error = true;
 			this.mensaje = "Usuario y/o Password incorrectos";
 			return "";
 		} catch (Exception e) {
+			LOGGER.error("Error desconocido", e);
 			this.error = true;
 			this.mensaje = "Ocurrio un error inesperado, intente más tarde";
 			return "";
