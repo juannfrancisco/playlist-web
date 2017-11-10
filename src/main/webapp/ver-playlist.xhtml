@@ -35,34 +35,29 @@
 		<div class="row">
 			<ui:include src="/WEB-INF/barraLateral.xhtml" />
 			<div class="col-xs-12 col-sm-10 col-sm-offset-2 contenedor-principal">
-				<h1>Mis Playlists</h1>
+				
 				<h:form>
-					<div class="text-right" >
-						<div class="btn-group" role="group">
-							<c:if test = "#{loginControlador.tienePermiso('nueva-playlist')}">
-								<h:commandButton styleClass="btn btn-primary"
-									value="Nueva Playlist" action="nueva-playlist"></h:commandButton>
-							</c:if>
-							<h:commandButton styleClass="btn btn-default"
-								value="Refrescar" action="#{listaPlaylistControlador.obtenerPlaylists}"></h:commandButton>
+					<hr/>
+					<div class="clearfix" >
+						<div class="pull-left">
+							<img style="width:200px;" src="images/img-3.jpg"/>
+						</div>
+						<div class="pull-left" style="padding:20px;" >
+							LISTA
+							<h1 style="margin:0px;">#{verPlaylistControlador.playlist.nombre}</h1>
+							<p>#{verPlaylistControlador.playlist.descripcion}</p>
+							<div>
+								<div class="btn-group" role="group">
+									<h:commandButton styleClass="btn btn-primary"
+										value="Reproducir" ></h:commandButton>
+									<h:commandButton styleClass="btn btn-danger"
+										value="Eliminar" ></h:commandButton>
+								</div>
+							</div>
 						</div>
 					</div>
 					<hr/>
-					<div class="row" >
-						<ui:repeat var="playlist" value="#{listaPlaylistControlador.playlists}">
-							<div class="col-md-3" >
-								<div class="cont-alumno" >
-									<h:commandLink action="#{verPlaylistControlador.verPlaylist(playlist)}" >
-									<img class="img-responsive" src="images/img-2.png"/>
-									<div style="padding:0px 15px;" >
-										<h3>#{playlist.nombre}</h3>
-										<p>#{playlist.descripcion}</p>
-									</div>
-									</h:commandLink>
-								</div>
-							</div>
-						</ui:repeat>
-					</div>
+					
 				</h:form>
 			</div>
 		</div>

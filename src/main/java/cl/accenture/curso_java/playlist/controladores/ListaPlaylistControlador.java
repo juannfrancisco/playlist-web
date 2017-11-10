@@ -11,9 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import cl.accenture.curso_java.playlist.dao.CancionDAO;
 import cl.accenture.curso_java.playlist.dao.PlaylistDAO;
-import cl.accenture.curso_java.playlist.modelo.Cancion;
 import cl.accenture.curso_java.playlist.modelo.Playlist;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
 
@@ -34,20 +32,21 @@ public class ListaPlaylistControlador implements Serializable {
 	 * 
 	 */
 	public ListaPlaylistControlador() {
-		obtenerCanciones();
+		obtenerPlaylists();
 	}
 	
 	
 	/**
-	 * Obtiene todas las canciones de la base de datos
+	 * Obtiene todas las playlists de la base de datos segun 
+	 * el usuario que esta logeado.
 	 */
-	public void obtenerCanciones(){
+	public void obtenerPlaylists(){
 		try {
 			Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 			this.playlists = PlaylistDAO.obtenerPlaylists(usuario.getNombreUsuario());
 			this.mensaje = "";
 		} catch (Exception e) {
-			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las canciones";
+			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las playlists";
 			this.playlists = new ArrayList<Playlist>();
 		}
 	}
@@ -57,13 +56,13 @@ public class ListaPlaylistControlador implements Serializable {
 	 * para refrescar la tabla.
 	 * @param cancion
 	 */
-	public void eliminar(Cancion cancion){
+	public void eliminar(Playlist playlist){
 		try {
-			CancionDAO.eliminarCancion(cancion);
-			obtenerCanciones();
-			this.mensaje = "la cancion fue eliminada correctamente";
+			PlaylistDAO.eliminarPlaylist(playlist);
+			obtenerPlaylists();
+			this.mensaje = "la playlist fue eliminada correctamente";
 		} catch (Exception e) {
-			this.mensaje = "Lo sentimos, Ocurrio un error al eliminar la cancion";
+			this.mensaje = "Lo sentimos, Ocurrio un error al eliminar la playlist";
 		}
 	}
 	
