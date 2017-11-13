@@ -17,7 +17,7 @@ Administrar playlist de musica
 
 ### Diagrama de Clases
 
-![alt text](https://raw.githubusercontent.com/juannfrancisco/playlist-web/master/diagramas/diagrama-clases.png "Diagrama de Clases")
+![alt text](https://raw.githubusercontent.com/juannfrancisco/playlist-web/master/diagramas/diagrama-clases-2.png "Diagrama de Clases")
 
 
 ### Diagrama de Secuencia
@@ -28,7 +28,7 @@ Administrar playlist de musica
 ### Diagrama de Entidad/Relacion
 
 
-![alt text](https://raw.githubusercontent.com/juannfrancisco/playlist-web/master/db-scripts/diagrama-er.png "Diagrama de Clases")
+![alt text](https://raw.githubusercontent.com/juannfrancisco/playlist-web/master/db-scripts/diagrama-er-2.png "Diagrama de Clases")
 
 
 
