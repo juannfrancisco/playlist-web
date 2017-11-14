@@ -64,22 +64,36 @@
 						styleClass="table table-bordered">
 						
 						<h:column>
-							<f:facet name="header">Id</f:facet>
-							#{cancion.id}						
-						</h:column>
-						<h:column>
 							<f:facet name="header">
 								<h:commandLink action="#{verPlaylistControlador.ordenarPorNombre()}">Nombre</h:commandLink>
 							</f:facet>
 							#{cancion.nombre}						
 						</h:column>
 						<h:column>
-							<f:facet name="header">Genero</f:facet>
+							<f:facet name="header">
+								<h:commandLink action="#{verPlaylistControlador.ordenarPorGenero()}">Genero</h:commandLink>
+							</f:facet>
 							#{cancion.genero}						
 						</h:column>
 						<h:column>
-							<f:facet name="header">Artista</f:facet>
+							<f:facet name="header">
+								<h:commandLink action="#{verPlaylistControlador.ordenarPorArtista()}">Artista</h:commandLink>
+							</f:facet>
 							#{cancion.artista}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink action="#{verPlaylistControlador.ordenarPorDuracion()}">Duracion</h:commandLink>
+							</f:facet>
+							#{cancion.duracion}						
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								Opciones
+							</f:facet>
+							<h:commandButton action="#{verPlaylistControlador.eliminarCancion( cancion )}" styleClass="btn btn-default" value="Eliminar"></h:commandButton>						
 						</h:column>
 						
 					</h:dataTable>
