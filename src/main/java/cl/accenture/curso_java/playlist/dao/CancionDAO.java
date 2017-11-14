@@ -11,6 +11,7 @@ import java.util.List;
 
 import cl.accenture.curso_java.playlist.modelo.Cancion;
 import cl.accenture.curso_java.playlist.modelo.Conexion;
+import cl.accenture.curso_java.playlist.modelo.ObjetoNoEncontradoException;
 import cl.accenture.curso_java.playlist.modelo.SinConexionException;
 
 /**
@@ -19,6 +20,25 @@ import cl.accenture.curso_java.playlist.modelo.SinConexionException;
  */
 public class CancionDAO {
 
+	
+	public static Cancion obtenerCancion( int id ) throws SQLException, SinConexionException{
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"select * from cancion where idcancion=?;");
+		st.setInt(1, id);
+		ResultSet rs = st.executeQuery();
+		while( rs.next() ){
+			Cancion cancion = new Cancion();
+			cancion.setId( rs.getInt("idcancion") );
+			cancion.setNombre( rs.getString("nombre") );
+			cancion.setArtista( rs.getString("artista") );
+			cancion.setDuracion( rs.getInt("duracion") );
+			cancion.setGenero( rs.getString("genero") );
+			return cancion;
+		}
+		throw new ObjetoNoEncontradoException("La cancion no existe");
+	}
+	
+	
 	/**
 	 * Obtiene todas las canciones del sistema.
 	 * @param id

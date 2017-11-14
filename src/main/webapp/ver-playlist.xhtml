@@ -58,6 +58,32 @@
 					</div>
 					<hr/>
 					
+					<h:dataTable 
+						value="#{verPlaylistControlador.playlist.canciones}"
+						var="cancion"
+						styleClass="table table-bordered">
+						
+						<h:column>
+							<f:facet name="header">Id</f:facet>
+							#{cancion.id}						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink action="#{verPlaylistControlador.ordenarPorNombre()}">Nombre</h:commandLink>
+							</f:facet>
+							#{cancion.nombre}						
+						</h:column>
+						<h:column>
+							<f:facet name="header">Genero</f:facet>
+							#{cancion.genero}						
+						</h:column>
+						<h:column>
+							<f:facet name="header">Artista</f:facet>
+							#{cancion.artista}						
+						</h:column>
+						
+					</h:dataTable>
+					
 				</h:form>
 			</div>
 		</div>

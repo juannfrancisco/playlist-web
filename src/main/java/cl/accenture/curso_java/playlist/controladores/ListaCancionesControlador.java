@@ -9,9 +9,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import cl.accenture.curso_java.playlist.dao.CancionDAO;
+import cl.accenture.curso_java.playlist.dao.PlaylistDAO;
 import cl.accenture.curso_java.playlist.modelo.Cancion;
+import cl.accenture.curso_java.playlist.modelo.Playlist;
+import cl.accenture.curso_java.playlist.modelo.Usuario;
 
 /**
  * @author Juan Francisco Maldonado León - juan.maldonado.leon@gmail.com
@@ -24,6 +28,7 @@ public class ListaCancionesControlador implements Serializable {
 
 	private static final long serialVersionUID = -6848126621941457061L;
 	private List<Cancion> canciones;
+	private List<Playlist> playlists;
 	private String mensaje;
 	
 	/**
@@ -31,6 +36,7 @@ public class ListaCancionesControlador implements Serializable {
 	 */
 	public ListaCancionesControlador() {
 		obtenerCanciones();
+		obtenerPlaylists();
 	}
 	
 	
@@ -48,6 +54,22 @@ public class ListaCancionesControlador implements Serializable {
 	}
 	
 	/**
+	 * Obtiene todas las playlists de la base de datos segun 
+	 * el usuario que esta logeado.
+	 */
+	public void obtenerPlaylists(){
+		try {
+			Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+			this.setPlaylists(PlaylistDAO.obtenerPlaylists(usuario.getNombreUsuario()));
+			this.mensaje = "";
+		} catch (Exception e) {
+			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las playlists";
+			this.setPlaylists(new ArrayList<Playlist>());
+		}
+	}
+	
+	
+	/**
 	 * Elimina una cancion determinada y luego obtiene todas las canciones 
 	 * para refrescar la tabla.
 	 * @param cancion
@@ -62,6 +84,20 @@ public class ListaCancionesControlador implements Serializable {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param playlist
+	 * @param cancion
+	 */
+	public void agregarCancion( Playlist playlist, Cancion cancion ){
+		try {
+//			CancionDAO.agregarCancion(cancion);
+			PlaylistDAO.agregarCancion(playlist, cancion);
+		} catch (Exception e) {
+			this.mensaje = "Lo sentimos, Ocurrio un error al eliminar la cancion";
+		}
+	}
 	
 
 	/**
@@ -92,5 +128,19 @@ public class ListaCancionesControlador implements Serializable {
 		this.mensaje = mensaje;
 	}
 
-	
+
+	/**
+	 * @return the playlists
+	 */
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+
+	/**
+	 * @param playlists the playlists to set
+	 */
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
+	}
 }

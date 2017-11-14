@@ -36,14 +36,10 @@
 					
 					<div class="text-right" >
 						<div class="btn-group" role="group">
-							
-							
 							<c:if test = "#{loginControlador.tienePermiso('nueva-cancion')}">
 								<h:commandButton styleClass="btn btn-primary"
 									value="Agregar Cancion" action="nueva-cancion"></h:commandButton>
 							</c:if>
-								
-								
 							<h:commandButton styleClass="btn btn-default"
 								value="Refrescar" action="#{listaCancionesControlador.obtenerCanciones}"></h:commandButton>
 						</div>
@@ -98,8 +94,11 @@
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 									  <li><a href="">Mis Playlist</a></li>
 									  <li role="separator" class="divider"></li>
-									  <li><a href="#">Playlist 1</a></li>
-									  <li><a href="#">Playlist 2</a></li>
+									  <ui:repeat var="playlist" value="#{listaCancionesControlador.playlists}">
+									  	<li>
+									  		<h:commandLink action="#{listaCancionesControlador.agregarCancion( playlist, cancion )}" >#{playlist.nombre}</h:commandLink>
+								  		</li>
+									  </ui:repeat>
 									</ul>
 								</c:if>
 							</div>

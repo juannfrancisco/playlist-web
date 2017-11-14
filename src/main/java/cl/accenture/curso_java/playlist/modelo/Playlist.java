@@ -3,6 +3,8 @@
  */
 package cl.accenture.curso_java.playlist.modelo;
 
+import java.util.List;
+
 /**
  * @author jmaldonado
  *
@@ -12,6 +14,7 @@ public class Playlist {
 	private int id;
 	private String nombre;
 	private String descripcion;
+	private List<Cancion> canciones;
 	
 	
 	public Playlist() {
@@ -63,6 +66,20 @@ public class Playlist {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	/**
+	 * @return the canciones
+	 */
+	public List<Cancion> getCanciones() {
+		return canciones;
+	}
+
+	/**
+	 * @param canciones the canciones to set
+	 */
+	public void setCanciones(List<Cancion> canciones) {
+		this.canciones = canciones;
 	}
 
 }

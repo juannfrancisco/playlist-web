@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cl.accenture.curso_java.playlist.modelo.Cancion;
 import cl.accenture.curso_java.playlist.modelo.Conexion;
 import cl.accenture.curso_java.playlist.modelo.Playlist;
 import cl.accenture.curso_java.playlist.modelo.SinConexionException;
@@ -55,10 +56,46 @@ public class PlaylistDAO {
 				"insert into playlist (nombre, id_usuario, descripcion) values(?,?,?);");
 		st.setString(1,playlist.getNombre() );
 		st.setString(2,usuario.getNombreUsuario() );
-		st.setString(3, playlist.getDescripcion() );
+		st.setString(3,playlist.getDescripcion() );
 		st.executeUpdate();
 	}
 	
+	/**
+	 * 
+	 * @param playlist
+	 * @param cancion
+	 * @throws SQLException
+	 * @throws SinConexionException
+	 */
+	public static void agregarCancion( Playlist playlist, Cancion cancion ) throws SQLException, SinConexionException{
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"insert into playlist_cancion (id_playlist, id_cancion) values(?,?);");
+		st.setInt(1, playlist.getId());
+		st.setInt(2, cancion.getId());
+		st.executeUpdate();
+	}
+	
+	
+	/**
+	 * 
+	 * @param playlist
+	 * @return
+	 * @throws SQLException
+	 * @throws SinConexionException
+	 */
+	public static List<Cancion> obtenerCanciones(Playlist playlist) throws SQLException, SinConexionException {
+		List<Cancion> canciones = new ArrayList<Cancion>();
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"select * from playlist_cancion where id_playlist=?;");
+		st.setInt( 1, playlist.getId() );
+		ResultSet rs = st.executeQuery();
+		while( rs.next() ){
+			int idCancion = rs.getInt("id_cancion");
+			Cancion cancion = CancionDAO.obtenerCancion(idCancion);
+			canciones.add(cancion);
+		}
+		return canciones;
+	}
 	
 	/**
 	 * 
