@@ -3,11 +3,14 @@
  */
 package cl.accenture.curso_java.playlist.controladores;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.apache.log4j.Logger;
 
 import cl.accenture.curso_java.playlist.dao.PlaylistDAO;
 import cl.accenture.curso_java.playlist.modelo.Cancion;
@@ -19,8 +22,10 @@ import cl.accenture.curso_java.playlist.modelo.Playlist;
  */
 @ManagedBean
 @SessionScoped
-public class VerPlaylistControlador {
+public class VerPlaylistControlador implements Serializable {
 
+	private static final long serialVersionUID = -4669809923772737328L;
+	private static final Logger LOGGER = Logger.getLogger(VerPlaylistControlador.class);
 	private Playlist playlist;
 	private String mensaje;
 	
@@ -34,13 +39,30 @@ public class VerPlaylistControlador {
 	 * @return
 	 */
 	public String verPlaylist( Playlist playlist ){
+		this.mensaje = "";
 		this.playlist = playlist;
 		try {
 			this.playlist.setCanciones( PlaylistDAO.obtenerCanciones(playlist) );
 		} catch (Exception e) {
-			e.printStackTrace();
+			this.mensaje = "Ocurrio un error al obtener la playlist";
+			LOGGER.error("Error al obtenr las canciones de la playlist", e);
 		}
 		return "ver-playlist";
+	}
+	
+	/**
+	 * 
+	 * @param cancion
+	 */
+	public void eliminarCancion( Cancion cancion ){
+		try {
+			PlaylistDAO.eliminarCancion(this.playlist, cancion);
+			verPlaylist(this.playlist); // Refrescar la info
+			this.mensaje = "La cancion fue eliminada de su playlist";
+		} catch (Exception e) {
+			this.mensaje = "Ocurrio un error al eliminar la cancion";
+			LOGGER.error("Error al eliminar una cancion de la playlist", e);
+		}
 	}
 	
 	

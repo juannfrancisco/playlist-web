@@ -77,6 +77,7 @@ public class LoginControlador implements Serializable {
 			usuarioLogeado = usuario;
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 			LOGGER.info("El usuario " + this.nombreUsuario + " ha iniciado sesion");
+			UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
 			this.mensaje = "";
 			this.error = false;
 			return "principal?faces-redirect=true";

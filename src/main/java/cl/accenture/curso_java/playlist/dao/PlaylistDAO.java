@@ -109,6 +109,22 @@ public class PlaylistDAO {
 		st.setInt(1, playlist.getId() );
 		st.executeUpdate();
 	}
+
+
+	/**
+	 * 
+	 * @param playlist
+	 * @param cancion
+	 * @throws SQLException
+	 * @throws SinConexionException
+	 */
+	public static void eliminarCancion(Playlist playlist, Cancion cancion) throws SQLException, SinConexionException {
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"delete from playlist_cancion where id_playlist = ? and id_cancion=?;");
+		st.setInt(1, playlist.getId() );
+		st.setInt(2, cancion.getId() );
+		st.executeUpdate();
+	}
 	
 	
 }

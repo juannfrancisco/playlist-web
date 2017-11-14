@@ -94,6 +94,7 @@ public class ListaCancionesControlador implements Serializable {
 		try {
 //			CancionDAO.agregarCancion(cancion);
 			PlaylistDAO.agregarCancion(playlist, cancion);
+			this.mensaje = "La cancion fue agregada :D a su playlist " + playlist.getNombre() ;
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al eliminar la cancion";
 		}
