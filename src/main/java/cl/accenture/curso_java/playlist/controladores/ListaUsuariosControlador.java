@@ -10,6 +10,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.playlist.dao.UsuarioDAO;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
 
@@ -23,6 +25,7 @@ import cl.accenture.curso_java.playlist.modelo.Usuario;
 public class ListaUsuariosControlador implements Serializable {
 
 	private static final long serialVersionUID = -6848126621941457061L;
+	private static final Logger LOGGER = Logger.getLogger(ListaUsuariosControlador.class);
 	private List<Usuario> usuarios;
 	private String mensaje;
 	
@@ -44,6 +47,7 @@ public class ListaUsuariosControlador implements Serializable {
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las canciones";
 			this.setUsuarios(new ArrayList<Usuario>());
+			LOGGER.error("Ocurrio un error ", e);
 		}
 	}
 	

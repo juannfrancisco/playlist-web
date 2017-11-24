@@ -97,4 +97,19 @@ public class UsuarioDAO {
 		st.setString( 2, usuario.getNombreUsuario());
 		st.executeUpdate();
 	}
+
+	
+	/**
+	 * 
+	 * @param usuario
+	 * @throws SQLException 
+	 * @throws SinConexionException 
+	 */
+	public static void agregarUsuario(Usuario usuario) throws SQLException, SinConexionException {
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"insert into usuario (userName, password ) values(?,?);");
+		st.setString(1,usuario.getNombreUsuario() );
+		st.setString(2,usuario.getPassword() );
+		st.executeUpdate();
+	}
 }
