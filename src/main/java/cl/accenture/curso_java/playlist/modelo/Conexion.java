@@ -17,7 +17,7 @@ public class Conexion {
 	private static Connection instancia = null;
 	
 	private Conexion() {
-		this.host = "localhost"; //127.0.0.1
+		this.host = "127.0.0.1"; //localhost
 		this.puerto = 3306;
 		this.baseDeDatos = "curso";
 		this.nombre = "jmaldonado";
