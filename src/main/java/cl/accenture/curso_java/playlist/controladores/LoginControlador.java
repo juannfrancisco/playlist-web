@@ -15,6 +15,7 @@ import cl.accenture.curso_java.playlist.dao.UsuarioDAO;
 import cl.accenture.curso_java.playlist.modelo.ObjetoNoEncontradoException;
 import cl.accenture.curso_java.playlist.modelo.Permiso;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
+import cl.accenture.curso_java.playlist.servicios.ServicioEncriptar;
 
 /**
  * @author Juan Francisco Maldonado León - juan.maldonado.leon@gmail.com
@@ -73,7 +74,7 @@ public class LoginControlador implements Serializable {
 	 */
 	public String iniciarSesion(){
 		try {
-			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
+			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, ServicioEncriptar.encriptar(this.password)));
 			usuarioLogeado = usuario;
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 			LOGGER.info("El usuario " + this.nombreUsuario + " ha iniciado sesion");
