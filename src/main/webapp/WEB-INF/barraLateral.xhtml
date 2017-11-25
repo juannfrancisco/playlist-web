@@ -25,11 +25,18 @@
 			</li>
 		</c:if>
 		
-<!-- 		<c:if test = "#{loginControlador.tienePermiso('listar-usuarios')}"> -->
+		<c:if test = "#{loginControlador.tienePermiso('listar-usuario')}">
 			<li role="presentation" >
-				<a href="lista-usuarios.xhtml" aria-controls="profile" role="tab">Usuarios</a>
+				<a href="lista-usuarios.xhtml" aria-controls="profile" role="tab">Ver Usuarios</a>
 			</li>
-<!-- 		</c:if> -->
+		</c:if>
+		
+		<c:if test = "#{loginControlador.tienePermiso('listar-usuario')}">
+			<li role="presentation" >
+				<a href="lista-perfiles.xhtml" aria-controls="profile" role="tab">Ver Perfiles</a>
+			</li>
+		</c:if>
+		
 		
 	</ul>
 </div>

@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import cl.accenture.curso_java.playlist.dao.UsuarioDAO;
+import cl.accenture.curso_java.playlist.modelo.Perfil;
 import cl.accenture.curso_java.playlist.modelo.Usuario;
 import cl.accenture.curso_java.playlist.servicios.ServicioEncriptar;
 
@@ -25,6 +26,7 @@ public class NuevoUsuarioControlador implements Serializable {
 	private Usuario usuario;
 	private String confirmarPassword;
 	private String mensaje;
+	private int idPerfil;
 	
 	/**
 	 * 
@@ -86,11 +88,29 @@ public class NuevoUsuarioControlador implements Serializable {
 	public void agregarUsuario(){
 		try {
 			this.usuario.setPassword( ServicioEncriptar.encriptar(this.usuario.getPassword()) );
+			Perfil perfil = new Perfil( this.idPerfil );
+			this.usuario.setPerfil(perfil);
 			UsuarioDAO.agregarUsuario(this.usuario);
 			this.mensaje = "El usuario ha sido agregada correctamente";
 			this.usuario = null;
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, ha ocurrido un error desconocido";
 		}
+	}
+
+
+	/**
+	 * @return the idPerfil
+	 */
+	public int getIdPerfil() {
+		return idPerfil;
+	}
+
+
+	/**
+	 * @param idPerfil the idPerfil to set
+	 */
+	public void setIdPerfil(int idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 }

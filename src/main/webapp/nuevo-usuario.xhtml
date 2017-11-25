@@ -42,16 +42,24 @@
 					
 					<div class="form-group">
 						<label>Password</label>
-						<h:inputText id="password" label="Password" styleClass="form-control" value="#{nuevoUsuarioControlador.usuario.password}">
+						<h:inputSecret id="password" label="Password" styleClass="form-control" value="#{nuevoUsuarioControlador.usuario.password}">
 					    	<f:validateLength minimum="4" maximum="40" />
-					    </h:inputText>
+					    </h:inputSecret>
 					</div>
 					
 					<div class="form-group">
 						<label>Confirmar Password</label>
-						<h:inputText id="confirmarPassword" label="Confirmar Password" styleClass="form-control" value="#{nuevoUsuarioControlador.confirmarPassword}">
+						<h:inputSecret id="confirmarPassword" label="Confirmar Password" styleClass="form-control" value="#{nuevoUsuarioControlador.confirmarPassword}">
 					    	<f:validateLength minimum="4" maximum="40" />
-					    </h:inputText>
+					    </h:inputSecret>
+					</div>
+					
+					<div class="form-group">
+						<label>Perfil</label>
+					    <h:selectOneMenu value="#{nuevoUsuarioControlador.idPerfil}" styleClass="form-control" >
+				   			<f:selectItems value="#{listaPerfilesControlador.perfiles}" var="perfil"
+				   			itemLabel="#{perfil.nombre}" itemValue="#{perfil.id}" />
+				   		</h:selectOneMenu>
 					</div>
 					
 					<div class="form-group">
