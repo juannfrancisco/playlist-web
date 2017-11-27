@@ -11,4 +11,8 @@ public class SinConexionException extends Exception {
 	public SinConexionException(String mensaje){
 		super(mensaje);
 	}
+	
+	public SinConexionException(String mensaje, Throwable cause ){
+		super(mensaje,cause);
+	}
 }

@@ -2,6 +2,7 @@ package cl.accenture.curso_java.playlist.modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Map;
 
 /**
  * @author Juan Francisco Maldonado León - juan.maldonado.leon@gmail.com
@@ -23,6 +24,13 @@ public class Conexion {
 		this.baseDeDatos = "curso";
 		this.nombre = "jmaldonado";
 		this.password = "java123";
+		
+		Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                              envName,
+                              env.get(envName));
+        }
 		
 		String hostOpenShift = System.getenv(VAR_HOST_MYSQL);
 		if( hostOpenShift != null ){
@@ -79,15 +87,13 @@ public class Conexion {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Conexion con = new Conexion();
-			Connection connection = DriverManager.
-					getConnection(
-	"jdbc:mysql://" + con.host+ ":" + 
-			con.puerto + "/" + con.baseDeDatos, con.nombre, con.password);
+			String urlConexion = "jdbc:mysql://" + con.host+ ":" + con.puerto + "/" + con.baseDeDatos;
+			System.out.println( urlConexion);
+			Connection connection = DriverManager.getConnection( urlConexion, con.nombre, con.password );
 			return connection;
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new SinConexionException( "No se ha podido realizar "
-					+ "la conexion hacia la base de datos " + e.getMessage() );
+					+ "la conexion hacia la base de datos " + e.getMessage() , e );
 		}
 	}
 	
