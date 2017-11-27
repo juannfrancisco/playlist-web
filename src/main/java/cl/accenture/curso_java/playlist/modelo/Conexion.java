@@ -22,7 +22,7 @@ public class Conexion {
 		this.host = "127.0.0.1"; //localhost
 		this.puerto = 3306;
 		this.baseDeDatos = "curso";
-		this.nombre = "jmaldonado";
+		this.nombre = "root";
 		this.password = "java123";
 		
 		Map<String, String> env = System.getenv();
