@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+</head>
+<body>
+	<div class="container-fluid" >
+		<div class="row" >
+			<div class="col-md-offset-4 col-md-4" >
+				<div class="text-center" >
+					<IMG alt="" src="images/logo-accenture.jpg" style="height:150px;padding:20px;" />
+				</div>
+				<div class="bg-info" style="padding:20px;border: 1px solid silver;" >
+					<h1>Registro</h1>
+					<hr/>
+					<h:form>
+						<div class="form-group" >
+							<LABEL>Nombre de Usuario</LABEL>
+							<h:inputText value="#{registroControlador.nombreUsuario}" styleClass="form-control" ></h:inputText>
+						</div>
+						<div class="form-group" >
+							<LABEL>Password</LABEL>
+							<h:inputSecret value="#{registroControlador.password}" styleClass="form-control" ></h:inputSecret>
+						</div>
+						
+						<div class="form-group" >
+							<LABEL>Repita su Password</LABEL>
+							<h:inputSecret value="#{registroControlador.rePassword}" styleClass="form-control" ></h:inputSecret>
+						</div>
+						<hr/>
+						<div class="form-group" >
+							<h:commandButton value="Ingresar" action="#{registroControlador.registrar}" styleClass="btn btn-primary btn-block" ></h:commandButton>
+						</div>
+					</h:form>
+					<h:outputText value="#{registroControlador.mensaje}" ></h:outputText>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
