@@ -2,7 +2,6 @@ package cl.accenture.curso_java.playlist.modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Map;
 
 /**
  * @author Juan Francisco Maldonado León - juan.maldonado.leon@gmail.com
@@ -15,23 +14,20 @@ public class Conexion {
 	private String baseDeDatos;
 	private String nombre;
 	private String password;
+	private static final String VAR_HOST_MYSQL = "MYSQL_PLAYLIST_PORT_3306_TCP_ADDR";
 	private static Connection instancia = null;
 	
 	private Conexion() {
-		
-		Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-            System.out.format("%s=%s%n",
-                              envName,
-                              env.get(envName));
-        }
-		
 		this.host = "127.0.0.1"; //localhost
 		this.puerto = 3306;
 		this.baseDeDatos = "curso";
 		this.nombre = "jmaldonado";
 		this.password = "java123";
 		
+		String hostOpenShift = System.getenv(VAR_HOST_MYSQL);
+		if( hostOpenShift != null ){
+			this.host = hostOpenShift;
+		}
 	}
 
 	public String getHost() {
